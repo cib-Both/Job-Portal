@@ -38,17 +38,13 @@ class UserResource extends Resource
                         ->email()
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\ToggleButtons::make('role')
+                    Forms\Components\Select::make('role')
                         ->label('Role')
-                        ->inline()
                         ->options([
-                            'admin' => 'Admin',
-                            'user' => 'User',
+                            'Admin' => 'Admin',
+                            'User' => 'User',
                         ])
-                        ->colors([
-                            'admin' => 'info',
-                            'user' => 'success',
-                        ])
+                        ->native(false)
                         ->required(),
                 ]),
             ]);
@@ -67,6 +63,10 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('role')
                     ->sortable()
                     ->badge()
+                    ->color(fn ($state) => match ($state) {
+                        'Admin' => 'success',
+                        'User' => 'primary',
+                    })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
