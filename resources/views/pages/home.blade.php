@@ -1,32 +1,14 @@
 <x-guest-layout>
     <!-- 2️⃣ Hero Section -->
-    <section class="bg-blue-600 text-white py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Find Your Dream Job Today</h1>
-            <p class="text-xl mb-8">Search thousands of jobs from top companies</p>
-            
-            <!-- Search Bar -->
-            <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-4">
-                <form action="{{ route('jobs') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <input type="text" name="title" placeholder="Job title or keywords" class="w-full border px-4 py-3 rounded text-gray-800">
-                    <input type="text" name="location" placeholder="Location" class="w-full border px-4 py-3 rounded text-gray-800">
-                    <select name="category" class="w-full border px-4 py-3 rounded text-gray-800">
-                        <option value="">All Categories</option>
-                        <option value="it">IT & Software</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="finance">Finance</option>
-                        <option value="design">Design</option>
-                        <option value="healthcare">Healthcare</option>
-                        <option value="engineering">Engineering</option>
-                    </select>
-                    <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 font-medium">
-                        Search Jobs
-                    </button>
-                </form>
+        <section class="px-4 sm:px-6 lg:px-8 ">
+          <div class="h-120 md:h-[80dvh] flex flex-col bg-[url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG9mZmljZSUyMHNwYWNlfGVufDB8fDB8fHww')] bg-cover bg-center bg-no-repeat rounded-2xl">
+            <div class="mt-auto w-2/3 md:max-w-lg ps-5 pb-5 md:ps-10 md:pb-10">
+              <h1 class="text-xl md:text-3xl lg:text-5xl text-white">
+                Bringing Art to everything
+              </h1>
             </div>
-        </div>
-    </section>
-
+          </div>
+        </section>
     <!-- 3️⃣ Popular Job Categories -->
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
@@ -81,6 +63,32 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </section>
+
+        <!-- Search Bar -->
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-4">Find Your Dream Job</h2>
+            <p class="text-gray-600 mb-6">Search through thousands of job listings across various industries.</p>
+        </div>
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-4">
+            <form action="{{ route('jobs') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <input type="text" name="title" placeholder="Job title or keywords" class="w-full border px-4 py-3 rounded text-gray-800">
+                <input type="text" name="location" placeholder="Location" class="w-full border px-4 py-3 rounded text-gray-800">
+                <select name="category" class="w-full border px-4 py-3 rounded text-gray-800">
+                    <option value="">All Categories</option>
+                    <option value="it">IT & Software</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="finance">Finance</option>
+                    <option value="design">Design</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="engineering">Engineering</option>
+                </select>
+                <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 font-medium">
+                    Search Jobs
+                </button>
+            </form>
         </div>
     </section>
 

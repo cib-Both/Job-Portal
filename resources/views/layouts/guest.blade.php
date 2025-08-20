@@ -14,17 +14,26 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-        <body class="bg-gray-50 text-gray-800">
-
-            
-            <main class="container mx-auto px-4 py-6">
-                @include('components.navbar')
-                {{ $slot }}
-            </main>
+    <script>
+      if (
+        localStorage.getItem('color-theme') === 'dark' ||
+        (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+    <body class="bg-white dark:bg-gray-900">
+        
+        <main class="container mx-auto px-4 py-6 bg-white dark:bg-gray-900">
+            @include('components.navbar')
+            {{ $slot }}
             @include('components.footer')
+        </main>
 
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-            @stack('scripts')
-        </body>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+        @stack('scripts')
+    </body>
 </html>

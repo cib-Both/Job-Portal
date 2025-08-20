@@ -1,4 +1,4 @@
-<nav class="sticky top-6 z-50 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-800 shadow-md rounded-xl mb-6">
+<nav class="sticky top-6 z-50 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-800 shadow-md dark:shadow-gray-800 rounded-xl mb-6">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 py-2">
     <!-- Logo Section -->
     <a href="{{ url('/') }}" class="flex items-center hover:opacity-80 transition-opacity">
@@ -9,7 +9,6 @@
       <!-- Dark Mode Toggle -->
       <button id="theme-toggle" type="button" 
               class="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 
-                     focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600 
                      rounded-full text-sm p-1.5 transition-colors">
         <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
@@ -22,10 +21,10 @@
         <!-- Profile Button (only for authenticated users) -->
       @auth
         <a href="{{ route('dashboard') }}" 
-           class="flex items-center justify-center space-x-2 rounded-2xl border-2 border-blue-600 px-2 py-2 text-blue-700
-                  hover:bg-blue-50 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 
-                  dark:border-blue-400 dark:text-blue-400 dark:hover:bg-gray-700 dark:hover:text-blue-300
-                  transition-colors duration-200">
+           class="flex items-center justify-center space-x-2 rounded-2xl border-2 border-gray-400 px-2 py-2
+                  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 
+                  dark:text-blue-400 dark:hover:bg-gray-700 dark:hover:text-gray-300
+                  ">
           <svg class="w-6 h-6 text-gray-700 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
           </svg>
@@ -72,7 +71,7 @@
           <a href="{{ route('about') }}" 
              class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 dark:hover:text-blue-400 dark:hover:bg-gray-700  md:dark:hover:bg-transparent transition-colors
              {{ Route::currentRouteName() === 'about' ? 'text-blue-500 dark:text-blue-400' : 'text-gray-900 dark:text-white' }}" >
-            About
+            About Us
           </a>
         </li>
         
