@@ -9,6 +9,7 @@ class Post extends Model
     protected $fillable = [
         'job_id',
         'reqirement',
+        'skill',
         'salary_option',
         'salary',
         'location',
@@ -21,5 +22,9 @@ class Post extends Model
     public function job()
     {
         return $this->belongsTo(Job::class);
+    }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

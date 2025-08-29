@@ -57,6 +57,12 @@ class PostResource extends Resource
                         ->columnSpanFull()
                         ->maxLength(1000)
                         ->required(),
+                    Forms\Components\Textarea::make('skill')
+                        ->label('Skill')
+                        ->autosize()
+                        ->columnSpanFull()
+                        ->maxLength(1000)
+                        ->required(),
                 ]),
             Section::make('Salary')
                 ->columns(2)
@@ -66,6 +72,7 @@ class PostResource extends Resource
                         ->native(false)
                         ->options([
                             'pay' => 'Pay',
+                            'negotiable' => 'Negotiable',
                             'not' => 'Not pay',
                         ])
                         ->reactive()
@@ -133,12 +140,14 @@ class PostResource extends Resource
                 ->label('Salary Option')
                 ->badge()
                 ->color(fn (string $state): string => match ($state) {
-                    'not' => 'warning',
                     'pay' => 'success',
+                    'not' => 'warning',
+                    'negotiable' => 'primary',
                 })
                 ->icon(fn (string $state): string => match ($state) {
                     'not' => 'heroicon-s-x-circle',
                     'pay' => 'heroicon-s-banknotes',
+                    'negotiable' => 'heroicon-s-hand-thumb-up',
                 })
                 ->searchable(),
             Tables\Columns\TextColumn::make('salary')

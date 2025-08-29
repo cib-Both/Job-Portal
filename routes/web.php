@@ -1,14 +1,18 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
+
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\HomeController;
 
-
-Route::view('/', 'pages.home')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/jobs', 'pages.jobs')->name('jobs');
 Route::view('/contact', 'pages.contact')->name('contact');
+
+Route::get('/jobs/{id}', [PostController::class, 'show'])->name('jobs.detail');
 
 Route::get('/dashboard', function () {
     return view('pages.dashboard');
