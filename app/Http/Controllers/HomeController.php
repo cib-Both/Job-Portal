@@ -14,7 +14,7 @@ class HomeController extends Controller
         $posts = Post::with(['job.company'])
             ->where('status', 'published')
             ->latest()
-            ->take(5)
+            ->take(4)
             ->get();
 
         return view('pages.home', compact('categories', 'posts'));

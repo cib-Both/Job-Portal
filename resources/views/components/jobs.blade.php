@@ -2,18 +2,21 @@
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold">Latest Job Openings</h2>
-                <!-- <a href="#" class="text-blue-600 font-medium hover:underline">View All Jobs</a> -->
-                <p href="{{ route('jobs') }}" class="mt-5 inline-flex items-center gap-x-1 font-medium text-blue-600 dark:text-blue-500">
+                <a href="{{ route('jobs') }}" 
+                   class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white 
+                          bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 
+                          focus:outline-none transition duration-300 group">
                     Contact Developer
-                <svg class="shrink-0 size-4 transition ease-in-out group-hover:translate-x-1 group-focus:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </p>
+                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18 6-6-6-6"/>
+                    </svg>
+                </a>
             </div>
-            
-            <div class="grid md:grid-cols-4 gap-6">
-                <!-- Job Card -->
-                 @foreach($posts as $post)
-                    <x-job-card :post="$post"/>
+            <div class="flex flex-col gap-6 md:grid md:grid-cols-2 lg:grid-cols-4">
+                @foreach($posts as $post)
+                        <x-job-card :post="$post"/>   
                 @endforeach
-            </div>
+            </div>       
         </div>
 </section>

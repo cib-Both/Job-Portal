@@ -42,7 +42,7 @@
                 <!-- Job Meta Info -->
                 <div class="flex flex-wrap justify-center gap-3 mt-4">
                     <span class="px-4 py-2 rounded-full text-sm font-medium bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-200 border border-blue-100 dark:border-blue-800">
-                        {{ ucfirst($post->type ?? 'Full-time') }}
+                        {{ ucfirst($post->type ?? '') }}
                     </span>
 
                     @if($post->location)
@@ -55,15 +55,22 @@
                     @if($post->salary_option || $post->salary)
                         <span class="flex items-center gap-2 px-4 py-2 rounded-full text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-200 border border-gray-200 dark:border-gray-600 hover:bg-blue-50 dark:hover:bg-blue-900/40 hover:border-blue-100 dark:hover:border-blue-800 transition">
                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                            {{ $post->salary_option ?? '' }} 
+                            {{ ucfirst($post->salary_option ?? '') }} 
                             @if($post->salary) {{ $post->salary }} $ @endif
                         </span>
                     @endif
 
-                    @if($post->deadline)
+                    @if($post->deadline_option)
                         <span class="flex items-center gap-2 px-4 py-2 rounded-full text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-200 border border-gray-200 dark:border-gray-600 hover:bg-blue-50 dark:hover:bg-blue-900/40 hover:border-blue-100 dark:hover:border-blue-800 transition">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            Deadline: {{ \Carbon\Carbon::parse($post->deadline)->format('M d, Y') }}
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+
+                            @if($post->deadline_option === 'until-full')
+                                Until Full
+                            @else
+                                Deadline: {{ \Carbon\Carbon::parse($post->deadline)->format('M d, Y') }}
+                            @endif
                         </span>
                     @endif
                 </div>
