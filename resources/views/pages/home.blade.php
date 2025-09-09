@@ -1,16 +1,17 @@
 <x-guest-layout> 
-    <x-hero />
+    
+    <x-hero/>
     
     <x-categories :categories="$categories" />
 
     <x-jobs :posts="$posts"/>
 
-    <x-employers />
+    <x-company :companies="$companies"/>
 
     <x-how-it-works />
 
-    <x-stats />
-
     <x-testimonials />
+
+    <x-stats />
 
 </x-guest-layout>

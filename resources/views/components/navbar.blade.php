@@ -1,5 +1,5 @@
 <nav class="sticky top-6 z-50 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-800 shadow-md dark:shadow-gray-800 rounded-xl mb-6">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 py-2">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-2">
     <!-- Logo Section -->
     <a href="{{ url('/') }}" class="flex items-center hover:opacity-80 transition-opacity">
       <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-14 w-24 object-contain">
@@ -21,10 +21,7 @@
         <!-- Profile Button (only for authenticated users) -->
       @auth
         <a href="{{ route('dashboard') }}" 
-           class="flex items-center justify-center space-x-2 rounded-2xl border-2 border-gray-400 px-2 py-2
-                  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 
-                  dark:text-blue-400 dark:hover:bg-gray-700 dark:hover:text-gray-300
-                  ">
+           class="flex items-center justify-center space-x-2 rounded-2xl border-2 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-2 transition-colors">
           <svg class="w-6 h-6 text-gray-700 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
           </svg>

@@ -22,4 +22,12 @@ class Company extends Model
     {
         return $this->hasMany(Application::class);
     }
+
+    public function publishedJobs()
+    {
+        return $this->hasMany(Job::class)->whereHas('posts', function ($query) 
+        {
+            $query->where('status', 'published');
+        });
+    }
 }

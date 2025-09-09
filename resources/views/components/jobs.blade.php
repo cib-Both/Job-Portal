@@ -1,13 +1,13 @@
  <section class="py-16">
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-bold">Latest Job Openings</h2>
+                <h2 class="text-3xl font-bold dark:text-white">Latest Jobs</h2>
                 <a href="{{ route('jobs') }}" 
-                   class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white 
+                   class="inline-flex items-center gap-2 px-4 py-2 font-medium text-white 
                           bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 
                           focus:outline-none transition duration-300 group">
-                    Contact Developer
-                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
+                    View all jobs
+                    <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18 6-6-6-6"/>
                     </svg>

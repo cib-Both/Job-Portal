@@ -17,4 +17,12 @@ class Category extends Model
     {
         return $this->hasMany(Job::class);
     }
+
+    public function availableJobs()
+    {
+        return $this->hasMany(Job::class)->whereHas('posts', function ($query) 
+        {
+            $query->where('status', 'published');
+        });
+    }
 }
