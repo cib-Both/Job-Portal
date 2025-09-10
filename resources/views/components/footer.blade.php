@@ -11,16 +11,16 @@
                   <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">Pages</h2>
                   <ul class="text-gray-500 dark:text-gray-400 font-medium">
                       <li class="mb-2">
-                          <a href="{{ url('/') }}" class="hover:underline">Home</a>
+                          <a href="{{ url('/') }}" class="hover:underline hover:text-blue-600 dark:hover:text-blue-400">Home</a>
                       </li>
                       <li class="mb-2">
-                          <a href="{{ route('jobs') }}" class="hover:underline">Jobs</a>
+                          <a href="{{ route('jobs') }}" class="hover:underline hover:text-blue-600 dark:hover:text-blue-400">Jobs</a>
                       </li>
                       <li class="mb-2">
-                          <a href="{{ route('about') }}" class="hover:underline">About Us</a>
+                          <a href="{{ route('about') }}" class="hover:underline hover:text-blue-600 dark:hover:text-blue-400">About Us</a>
                       </li>
                       <li>
-                          <a href="{{ route('contact') }}" class="hover:underline">Contact</a>
+                          <a href="{{ route('contact') }}" class="hover:underline hover:text-blue-600 dark:hover:text-blue-400">Contact</a>
                       </li>
                     </ul>
                 </div>
@@ -28,10 +28,10 @@
                   <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
                   <ul class="text-gray-500 dark:text-gray-400 font-medium">
                       <li class="mb-2">
-                          <a href="#" class="hover:underline ">Github</a>
+                          <a href="#" class="hover:underline hover:text-blue-600 dark:hover:text-blue-400">Github</a>
                       </li>
                       <li>
-                          <a href="#" class="hover:underline">Discord</a>
+                          <a href="#" class="hover:underline hover:text-blue-600 dark:hover:text-blue-400">Discord</a>
                       </li>
                   </ul>
               </div>
@@ -39,10 +39,10 @@
                   <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                   <ul class="text-gray-500 dark:text-gray-400 font-medium">
                       <li class="mb-2">
-                          <a href="#" class="hover:underline">Privacy Policy</a>
+                          <a href="#" class="hover:underline hover:text-blue-600 dark:hover:text-blue-400">Privacy Policy</a>
                       </li>
                       <li>
-                          <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                          <a href="#" class="hover:underline hover:text-blue-600 dark:hover:text-blue-400">Terms &amp; Conditions</a>
                       </li>
                   </ul>
               </div>
@@ -50,7 +50,7 @@
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div class="sm:flex sm:items-center sm:justify-between">
-          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.
+          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="https://flowbite.com/" class="hover:underline">FindJob™</a>. All Rights Reserved.
           </span>
           <div class="flex mt-4 sm:justify-center sm:mt-0">
               <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">

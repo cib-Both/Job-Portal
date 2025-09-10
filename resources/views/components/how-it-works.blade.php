@@ -6,7 +6,7 @@
                 How It Works
             </h2>
             <p class="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-                Get started with our simple 4-step process to find your perfect job or hire the best talent
+                Get started with our simple 4-step process to find your perfect job
             </p>
         </div>
 

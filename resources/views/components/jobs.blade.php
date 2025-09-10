@@ -1,7 +1,14 @@
  <section class="py-16">
         <div class="container mx-auto px-6">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-bold dark:text-white">Latest Jobs</h2>
+            <div class="flex justify-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold dark:text-white">Latest Jobs Available</h2>
+            </div>
+            <div class="flex flex-col gap-6 md:grid md:grid-cols-2 lg:grid-cols-4">
+                @foreach($posts as $post)
+                <x-job-card :post="$post"/>
+                @endforeach
+            </div>
+            <div class="flex justify-center mt-10">       
                 <a href="{{ route('jobs') }}" 
                    class="inline-flex items-center gap-2 px-4 py-2 font-medium text-white 
                           bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 
@@ -13,10 +20,5 @@
                     </svg>
                 </a>
             </div>
-            <div class="flex flex-col gap-6 md:grid md:grid-cols-2 lg:grid-cols-4">
-                @foreach($posts as $post)
-                        <x-job-card :post="$post"/>   
-                @endforeach
-            </div>       
         </div>
 </section>
