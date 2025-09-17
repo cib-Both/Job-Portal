@@ -6,10 +6,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobdetailController;
+use App\Http\Controllers\JobsController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/jobs', [JobsController::class, 'index'])->name('jobs');
 Route::view('/about', 'pages.about')->name('about');
-Route::view('/jobs', 'pages.jobs')->name('jobs');
 Route::view('/contact', 'pages.contact')->name('contact');
 
 Route::get('/jobs/{id}', [JobdetailController::class, 'show'])->name('jobs.detail');

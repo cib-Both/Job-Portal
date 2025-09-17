@@ -90,7 +90,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                 </div>
-                <span class="font-medium">{{ $post->location ?? 'Remote Work Available' }}</span>
+                <span class="font-medium">{{ ucfirst($post->location ?? 'Remote Work Available') }}</span>
             </div>
             
             <!-- Job Type -->
