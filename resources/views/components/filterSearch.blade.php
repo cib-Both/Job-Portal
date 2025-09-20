@@ -1,10 +1,9 @@
-@props(['posts', 'categories', 'locations', 'skills', 'jobTypes'])
+@props(['posts', 'categories', 'locations', 'jobTypes', 'jobTypeCounts'])
 
 <!-- Main Container -->
 <form method="GET" action="{{ route('jobs') }}" id="filter-form" class="flex gap-6">
 
-    <!-- Left Sidebar Filters -->
-    <div class="w-80 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 h-fit sticky top-6 scrollbar-none">
+    <div class="hidden lg:block w-80 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 h-fit sticky top-24 scrollbar-none">
         
         <!-- Filter Header -->
         <div class="p-6 border-b border-slate-200 dark:border-slate-700">
@@ -56,11 +55,7 @@
                 <div class="space-y-2">
                     <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
                         <input type="radio" name="salary_option" value="" {{ request('salary_option') == '' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="text-blue-600 focus:ring-blue-500">
-                        <span class="text-slate-700 dark:text-slate-300">Any Salary</span>
-                    </label>
-                    <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
-                        <input type="radio" name="salary_option" value="pay" {{ request('salary_option') == 'pay' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="text-blue-600 focus:ring-blue-500">
-                        <span class="text-slate-700 dark:text-slate-300">Paid</span>
+                        <span class="text-slate-700 dark:text-slate-300">All</span>
                     </label>
                     <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
                         <input type="radio" name="salary_option" value="not" {{ request('salary_option') == 'not' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="text-blue-600 focus:ring-blue-500">
@@ -69,6 +64,10 @@
                     <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
                         <input type="radio" name="salary_option" value="negotiable" {{ request('salary_option') == 'negotiable' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="text-blue-600 focus:ring-blue-500">
                         <span class="text-slate-700 dark:text-slate-300">Negotiable</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
+                        <input type="radio" name="salary_option" value="pay" {{ request('salary_option') == 'pay' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700 dark:text-slate-300">Paid</span>
                     </label>
                 </div>
                 
@@ -79,13 +78,15 @@
                                name="min_salary" 
                                value="{{ request('min_salary') }}"
                                placeholder="Min" 
-                               class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <span class="flex items-center text-slate-500 text-sm">to</span>
+                               class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 placeholder-gray-500 dark:placeholder-gray-400 focus:border-transparent">
+                    </div>
+                        <span class="flex items-center text-slate-500 text-sm my-2 ml-2">To</span>
+                    <div class="flex gap-3">
                         <input type="number" 
                                name="max_salary" 
                                value="{{ request('max_salary') }}"
                                placeholder="Max" 
-                               class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                               class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 placeholder-gray-500 dark:placeholder-gray-400 focus:border-transparent">
                     </div>
                 </div>
             </div>
@@ -106,47 +107,8 @@
                                        class="rounded text-blue-600 focus:ring-blue-500">
                                 <span class="text-slate-700 dark:text-slate-300 capitalize">{{ $type }}</span>
                             </div>
-                            <span class="text-xs text-slate-500 bg-slate-100 dark:bg-slate-600 px-2 py-1 rounded-full">
+                            <span class="text-xs text-slate-500 dark:text-slate-100 bg-slate-100 dark:bg-slate-600 px-2 py-1 rounded-full">
                                 {{ $jobTypeCounts[$type] ?? 0 }}
-                            </span>
-                        </label>
-                    @endforeach
-                </div>
-            </div>
-
-            <!-- Skills Filter -->
-            <div>
-                <h4 class="font-medium text-slate-900 dark:text-white mb-3">
-                    Skills
-                </h4>
-                
-                <!-- Skills Search -->
-                <div class="relative mb-3">
-                    <input type="text" 
-                           id="skill-search"
-                           placeholder="Search skills..." 
-                           class="w-full px-3 py-2 pr-8 text-sm rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <div class="absolute right-2.5 top-1/2 -translate-y-1/2">
-                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Skills List -->
-                <div class="space-y-1 max-h-48 overflow-y-auto scrollbar-none" id="skills-list">
-                    @foreach($skills as $skill)
-                        <label class="skill-item flex items-center justify-between p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors" data-skill="{{ strtolower($skill) }}">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" 
-                                       name="skills[]" 
-                                       value="{{ $skill }}" 
-                                       {{ in_array($skill, request()->input('skills', [])) ? 'checked' : '' }} 
-                                       class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="text-slate-700 dark:text-slate-300 text-sm">{{ $skill }}</span>
-                            </div>
-                            <span class="text-xs text-slate-500 bg-slate-100 dark:bg-slate-600 px-2 py-1 rounded-full">
-                                {{ $skillCounts[$skill] ?? 0 }}
                             </span>
                         </label>
                     @endforeach
@@ -172,15 +134,30 @@
         </div>
     </div>
 
+    
     <!-- Right Content Area (Jobs List) -->
     <div class="flex-1">
+        <!-- Mobile Filter Button (only visible on small screens) -->
+    <div class="lg:hidden mb-4 flex justify-start h-10">
+        <button 
+            type="button" 
+            onclick="toggleMobileFilters()" 
+            class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 ">
+            <!-- Filter Icon -->
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.586V4z"/>
+            </svg>
+            Filter
+        </button>
+    </div>
+
         <!-- Search Bar -->
         <div class="mb-8">
             <div class="relative">
                 <input type="text" 
                        name="q"
                        value="{{ request('q') }}"
-                       placeholder="Search jobs, companies, skills..." 
+                       placeholder="Search..." 
                        class="w-full pl-12 lg:pr-32 pr-20 py-4 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm">
                 <div class="absolute left-4 top-1/2 -translate-y-1/2">
                     <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,10 +179,14 @@
         </div>
 
         <!-- Jobs Results -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="jobs-results">
-            @foreach($posts as $post)
+        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4" id="jobs-results">
+            @forelse($posts as $post)
                 <x-job-card :post="$post"/>
-            @endforeach
+            @empty
+                <div class="col-span-full text-center py-16 text-slate-500 dark:text-slate-400 text-2xl font-semibold">
+                    អត់មានទេប្រាដឺ!
+                </div>
+            @endforelse
         </div>
 
         <!-- Pagination -->
@@ -215,22 +196,17 @@
             </div>
         @endif
     </div>
+</form>
 
     <!-- Mobile Filter Modal -->
-    <div id="mobile-filter-modal" class="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 opacity-0 invisible transition-all duration-300">
-        <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 rounded-t-2xl shadow-2xl transform translate-y-full transition-transform duration-300" id="mobile-filter-content">
-            
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">
-                    Filters
-                </h3>
-                <button type="button" onclick="closeMobileFilters()" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
-                    <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
+<div id="mobile-filter-sidebar" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 opacity-0 invisible transition-opacity duration-300">
+    <div id="mobile-filter-content" class="fixed top-0 left-0 h-full w-3/4 bg-white dark:bg-slate-800 shadow-lg p-6 overflow-y-auto transform -translate-x-full transition-transform duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Filters</h3>
+            <button type="button" onclick="toggleMobileFilters()" class="p-2 dark:text-white text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                ✕
+            </button>
+        </div>
 
             <!-- Modal Content -->
             <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto scrollbar-none">
@@ -273,7 +249,7 @@
                     <div class="space-y-2">
                         <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
                             <input type="radio" name="salary_option_mobile" value="" {{ request('salary_option') == '' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="text-blue-600 focus:ring-blue-500">
-                            <span class="text-slate-700 dark:text-slate-300">Any Salary</span>
+                            <span class="text-slate-700 dark:text-slate-300">All</span>
                         </label>
                         <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
                             <input type="radio" name="salary_option_mobile" value="not" {{ request('salary_option') == 'not' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="text-blue-600 focus:ring-blue-500">
@@ -296,15 +272,15 @@
                                    name="min_salary_mobile" 
                                    value="{{ request('min_salary') }}"
                                    placeholder="Min" 
-                                   class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                   class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 placeholder-gray-500 dark:placeholder-gray-400 focus:border-transparent">
                         </div>
-                        <span class="flex items-center text-slate-500 text-sm my-2">to</span>
+                        <span class="flex items-center text-slate-500 text-sm my-2 ml-2">To</span>
                         <div class="flex">
                             <input type="number" 
                                    name="max_salary_mobile" 
                                    value="{{ request('max_salary') }}"
                                    placeholder="Max" 
-                                   class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                   class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 placeholder-gray-500 dark:placeholder-gray-400 focus:border-transparent">
                         </div>
                     </div>
                 </div>
@@ -332,42 +308,6 @@
                         @endforeach
                     </div>
                 </div>
-
-                <!-- Skills Filter -->
-                <div>
-                    <h4 class="font-medium text-slate-900 dark:text-white mb-3">
-                        Skills
-                    </h4>
-                    
-                    <!-- Skills Search -->
-                    <div class="relative mb-3">
-                        <input type="text" 
-                               id="mobile-skill-search"
-                               placeholder="Search skills..." 
-                               class="w-full px-3 py-2 pr-8 text-sm rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <div class="absolute right-2.5 top-1/2 -translate-y-1/2">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Skills List -->
-                    <div class="space-y-1 max-h-48 overflow-y-auto scrollbar-none" id="mobile-skills-list">
-                        @foreach($skills as $skill)
-                            <label class="mobile-skill-item flex items-center justify-between p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors" data-skill="{{ strtolower($skill) }}">
-                                <div class="flex items-center gap-3">
-                                    <input type="checkbox" 
-                                           name="skills_mobile[]" 
-                                           value="{{ $skill }}" 
-                                           {{ in_array($skill, request()->input('skills', [])) ? 'checked' : '' }}
-                                           class="rounded text-blue-600 focus:ring-blue-500">
-                                    <span class="text-slate-700 dark:text-slate-300 text-sm">{{ $skill }}</span>
-                                </div>
-                            </label>
-                        @endforeach
-                    </div>
-                </div>
             </div>
 
             <!-- Modal Action Buttons -->
@@ -388,27 +328,29 @@
             </div>
         </div>
     </div>
-</form>
+
 
 <script>
-function openMobileFilters() {
-    const modal = document.getElementById('mobile-filter-modal');
+
+function toggleMobileFilters() {
+    const sidebar = document.getElementById('mobile-filter-sidebar');
     const content = document.getElementById('mobile-filter-content');
 
-    modal.classList.remove('invisible', 'opacity-0');
-    setTimeout(() => {
-        content.classList.remove('translate-y-full');
-    }, 50);
-}
-
-function closeMobileFilters() {
-    const modal = document.getElementById('mobile-filter-modal');
-    const content = document.getElementById('mobile-filter-content');
-
-    content.classList.add('translate-y-full');
-    setTimeout(() => {
-        modal.classList.add('opacity-0', 'invisible');
-    }, 300);
+    if (sidebar.classList.contains('invisible')) {
+        // Open sidebar
+        sidebar.classList.remove('invisible');
+        setTimeout(() => {
+            sidebar.classList.remove('opacity-0');
+            content.classList.remove('-translate-x-full');
+        }, 50);
+    } else {
+        // Close sidebar
+        sidebar.classList.add('opacity-0');
+        content.classList.add('-translate-x-full');
+        setTimeout(() => {
+            sidebar.classList.add('invisible');
+        }, 300); // matches transition duration
+    }
 }
 
     // ✅ Salary toggle
@@ -488,21 +430,6 @@ function closeMobileFilters() {
         document.querySelectorAll('input[name="skills_mobile[]"]').forEach(el => el.checked = false);
         document.querySelector('input[name="min_salary_mobile"]').value = "";
         document.querySelector('input[name="max_salary_mobile"]').value = "";
-    }
-
-    // ✅ Skills search filter
-    function filterSkills(inputId, listId) {
-        const input = document.getElementById(inputId).value.toLowerCase();
-        const items = document.querySelectorAll(`#${listId} li`);
-        
-        items.forEach(item => {
-            const skill = item.getAttribute('data-skill').toLowerCase();
-            if (skill.includes(input)) {
-                item.classList.remove('hidden');
-            } else {
-                item.classList.add('hidden');
-            }
-        });
     }
 </script>
 

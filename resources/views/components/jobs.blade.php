@@ -3,7 +3,7 @@
             <div class="flex justify-center mb-8">
                 <h2 class="text-3xl md:text-4xl font-bold dark:text-white">Latest Jobs Available</h2>
             </div>
-            <div class="flex flex-col gap-6 md:grid md:grid-cols-2 lg:grid-cols-4">
+            <div class="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-4">
                 @foreach($posts as $post)
                 <x-job-card :post="$post"/>
                 @endforeach

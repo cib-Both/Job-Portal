@@ -1,11 +1,10 @@
 <x-guest-layout>
-  
+      
     <x-filterSearch
         :posts="$posts" 
         :categories="$categories" 
         :locations="$locations" 
-        :jobTypes="$jobTypes" 
-        :skills="$skills" 
+        :jobTypes="$jobTypes"  
         :jobTypeCounts="$jobTypeCounts" 
     />
 

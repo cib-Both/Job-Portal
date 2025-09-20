@@ -48,21 +48,14 @@ class JobsController extends Controller
         } elseif ($request->salary_option === 'not') {
             $query->whereNull('salary');
         } elseif ($request->salary_option === 'negotiable') {
-            $query->where('salary_type', 'negotiable');
+            $query->whereNull('salary');
         }
 
         // 🕒 Job Type filter (comes from jobs table!)
         if ($request->filled('type')) {
-            $query->whereHas('job', function ($q) use ($request) {
+            $query->whereHas('posts', function ($q) use ($request) {
                 $q->whereIn('type', $request->input('type'));
             });
-        }
-
-        // 🛠 Skills filter (assuming posts table has a JSON or comma string)
-        if ($request->filled('skill')) {
-            foreach ($request->skills as $skill) {
-                $query->where('skill', 'like', "%$skill%");
-            }
         }
 
         // ✅ Get results
@@ -71,23 +64,13 @@ class JobsController extends Controller
         // Data for filters
         $categories = Category::all();
         $locations  = Post::pluck('location')->unique();
-        $skills     = Post::pluck('skill')->unique()->filter();
-        $jobTypes   = Post::with('job')->get()->pluck('job.type')->unique()->filter();
+        $jobTypes   = Post::pluck('type')->unique()->filter();
 
         // Counts for sidebar
         $jobTypeCounts = [];
         foreach ($jobTypes as $type) {
             $jobTypeCounts[$type] = Post::where('status', 'published')
-                ->whereHas('job', function ($q) use ($type) {
-                    $q->where('type', $type);
-                })
-                ->count();
-        }
-
-        $skillCounts = [];
-        foreach ($skills as $skill) {
-            $skillCounts[$skill] = Post::where('status', 'published')
-                ->where('skill', 'like', "%$skill%")
+                ->where('type', $type)
                 ->count();
         }
 
@@ -95,10 +78,8 @@ class JobsController extends Controller
             'posts',
             'categories',
             'locations',
-            'skills',
             'jobTypes',
-            'jobTypeCounts',
-            'skillCounts'
+            'jobTypeCounts'
         ));
     }
 }
