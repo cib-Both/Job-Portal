@@ -1,4 +1,4 @@
- <section class="py-16">
+ <section class="py-16 bg-gray-50 dark:bg-gray-900">
         <div class="container mx-auto px-6">
             <div class="flex justify-center mb-8">
                 <h2 class="text-3xl md:text-4xl font-bold dark:text-white">Latest Jobs Available</h2>

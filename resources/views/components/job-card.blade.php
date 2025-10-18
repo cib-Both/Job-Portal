@@ -93,7 +93,7 @@
 
         <!-- Action Button -->
         <a href="{{ route('jobs.detail', $post->id) }}" 
-           class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-blue-700 rounded hover:bg-blue-800">
+           class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-blue-700 rounded-lg hover:bg-blue-800">
             <span class="mr-2">Details</span>
             <svg class="w-4 h-4 transition-all duration-300 group-hover:translate-x-0.5 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>

@@ -1,7 +1,7 @@
 @props(['posts', 'categories', 'locations', 'jobTypes', 'jobTypeCounts'])
 
 <!-- Main Container -->
-<form method="GET" action="{{ route('jobs') }}" id="filter-form" class="flex gap-6">
+<form method="GET" action="{{ route('jobs.filter') }}" id="filter-form" class="flex gap-6">
 
     <div class="hidden lg:block w-80 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 h-fit sticky top-24 scrollbar-none">
         
@@ -15,36 +15,124 @@
         </div>
 
         <!-- Filter Content -->
-        <div class="p-6 space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-none">
-            
+        <div class="p-6 space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-none">           
             <!-- Job Category Filter -->
-            <div>
+            <div 
+                x-data="{
+                    open: false, 
+                    selected: '{{ request('category') ?? '' }}',
+                    categories: {{ $categories->map(fn($c) => ['id' => $c->id, 'name' => $c->name])->values()->toJson() }}
+                }" class="relative">
+
                 <h4 class="font-medium text-slate-900 dark:text-white mb-3">
                     Category
                 </h4>
-                <select name="category" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
-                    <option value="">All Categories</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
+
+                <!-- Hidden input to send value -->
+                <input type="hidden" name="category" :value="selected">
+
+                <!-- Dropdown button -->
+                <button type="button"
+                    @click="open = !open"
+                    class="w-full flex justify-between items-center px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
+                >
+                        <span x-text="selected 
+                            ? (categories.find(c => c.id == selected)?.name ?? 'All Categories') 
+                            : 'All Categories'">
+                        </span>
+                    <svg class="w-5 h-5 text-slate-400 dark:text-slate-300 transition-transform"
+                         :class="open ? 'rotate-180' : ''"
+                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+
+                <!-- Dropdown list -->
+                <div x-show="open"
+                    @click.outside="open = false"
+                    x-transition
+                    class="absolute mt-2 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl shadow-lg overflow-hidden z-10"
+                >
+                    <ul class="text-gray-800 dark:text-white max-h-60 overflow-y-auto scrollbar-hide">
+                        <li>
+                            <button type="button"
+                                @click="selected = ''; open = false"
+                                class="w-full text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                            >
+                                All Categories
+                            </button>
+                        </li>
+                        @foreach($categories as $category)
+                            <li>
+                                <button type="button"
+                                    @click="selected = '{{ $category->id }}'; open = false"
+                                    class="w-full text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                                >
+                                    {{ $category->name }}
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
 
             <!-- Location Filter -->
-            <div>
+            <div 
+                x-data="{
+                    open: false, 
+                    selected: '{{ request('location') ?? '' }}',
+                    locations: {{ collect($locations)->map(fn($l) => ['name' => is_object($l) ? $l->name : $l])->values()->toJson() }}
+                }" class="relative">
+                
                 <h4 class="font-medium text-slate-900 dark:text-white mb-3">
                     Location
                 </h4>
-                <select name="location" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
-                    <option value="">All Locations</option>
-                    @foreach($locations as $location)
-                        <option value="{{ $location }}" {{ request('location') == $location ? 'selected' : '' }}>
-                            {{ $location }}
-                        </option>
-                    @endforeach
-                </select>
+
+                <!-- Hidden input to send value -->
+                <input type="hidden" name="location" :value="selected">
+
+                <!-- Dropdown button -->
+                <button type="button"
+                    @click="open = !open"
+                    class="w-full flex justify-between items-center px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
+                >
+                        <span x-text="selected 
+                            ? (locations.find(l => l.name == selected)?.name ?? 'All Locations') 
+                            : 'All Locations'">
+                        </span>
+                    <svg class="w-5 h-5 text-slate-400 dark:text-slate-300 transition-transform"
+                         :class="open ? 'rotate-180' : ''"
+                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+
+                <!-- Dropdown list -->
+                <div x-show="open"
+                    @click.outside="open = false"
+                    x-transition
+                    class="absolute mt-2 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl shadow-lg overflow-hidden z-10"
+                >
+                    <ul class="text-gray-800 dark:text-white max-h-60 overflow-y-auto scrollbar-hide">
+                        <li>
+                            <button type="button"
+                                @click="selected = ''; open = false"
+                                class="w-full text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                            >
+                                All Locations
+                            </button>
+                        </li>
+                        <template x-for="loc in locations" :key="loc.name">
+                            <li>
+                                <button type="button"
+                                    @click="selected = loc.name; open = false"
+                                    class="w-full text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                                    x-text="loc.name"
+                                ></button>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
             </div>
 
             <!-- Salary Filter -->
@@ -180,13 +268,7 @@
 
         <!-- Jobs Results -->
         <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4" id="jobs-results">
-            @forelse($posts as $post)
-                <x-job-card :post="$post"/>
-            @empty
-                <div class="col-span-full text-center py-16 text-slate-500 dark:text-slate-400 text-2xl font-semibold">
-                    អត់មានទេប្រាដឺ!
-                </div>
-            @endforelse
+            <x-jobs-grid :posts="$posts"/>
         </div>
 
         <!-- Pagination -->
@@ -209,37 +291,125 @@
         </div>
 
             <!-- Modal Content -->
-            <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto scrollbar-none">
-                
-                <!-- Job Category Filter -->
-                <div>
-                    <h4 class="font-medium text-slate-900 dark:text-white mb-3">
-                        Category
-                    </h4>
-                    <select name="category_mobile" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
-                        <option value="">All Categories</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+            <div class="p-6 space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-none">           
+            <!-- Job Category Filter -->
+            <div 
+                x-data="{
+                    open: false, 
+                    selected: '{{ request('category') ?? '' }}',
+                    categories: {{ $categories->map(fn($c) => ['id' => $c->id, 'name' => $c->name])->values()->toJson() }}
+                }" class="relative">
 
-                <!-- Location Filter -->
-                <div>
-                    <h4 class="font-medium text-slate-900 dark:text-white mb-3">
-                        Location
-                    </h4>
-                    <select name="location_mobile" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
-                        <option value="">All Locations</option>
-                        @foreach($locations as $location)
-                            <option value="{{ $location }}" {{ request('location') == $location ? 'selected' : '' }}>
-                                {{ $location }}
-                            </option>
+                <h4 class="font-medium text-slate-900 dark:text-white mb-3">
+                    Category
+                </h4>
+
+                <!-- Hidden input to send value -->
+                <input type="hidden" name="category_mobile" :value="selected">
+
+                <!-- Dropdown button -->
+                <button type="button"
+                    @click="open = !open"
+                    class="w-full flex justify-between items-center px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
+                >
+                        <span x-text="selected 
+                            ? (categories.find(c => c.id == selected)?.name ?? 'All Categories') 
+                            : 'All Categories'">
+                        </span>
+                    <svg class="w-5 h-5 text-slate-400 dark:text-slate-300 transition-transform"
+                         :class="open ? 'rotate-180' : ''"
+                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+
+                <!-- Dropdown list -->
+                <div x-show="open"
+                    @click.outside="open = false"
+                    x-transition
+                    class="absolute mt-2 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl shadow-lg overflow-hidden z-10"
+                >
+                    <ul class="text-gray-800 dark:text-white max-h-60 overflow-y-auto scrollbar-hide">
+                        <li>
+                            <button type="button"
+                                @click="selected = ''; open = false"
+                                class="w-full text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                            >
+                                All Categories
+                            </button>
+                        </li>
+                        @foreach($categories as $category)
+                            <li>
+                                <button type="button"
+                                    @click="selected = '{{ $category->id }}'; open = false"
+                                    class="w-full text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                                >
+                                    {{ $category->name }}
+                                </button>
+                            </li>
                         @endforeach
-                    </select>
+                    </ul>
                 </div>
+            </div>
+
+            <!-- Location Filter -->
+            <div 
+                x-data="{
+                    open: false, 
+                    selected: '{{ request('location') ?? '' }}',
+                    locations: {{ collect($locations)->map(fn($l) => ['name' => is_object($l) ? $l->name : $l])->values()->toJson() }}
+                }" class="relative">
+                
+                <h4 class="font-medium text-slate-900 dark:text-white mb-3">
+                    Location
+                </h4>
+
+                <!-- Hidden input to send value -->
+                <input type="hidden" name="location_mobile" :value="selected">
+
+                <!-- Dropdown button -->
+                <button type="button"
+                    @click="open = !open"
+                    class="w-full flex justify-between items-center px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
+                >
+                        <span x-text="selected 
+                            ? (locations.find(l => l.name == selected)?.name ?? 'All Locations') 
+                            : 'All Locations'">
+                        </span>
+                    <svg class="w-5 h-5 text-slate-400 dark:text-slate-300 transition-transform"
+                         :class="open ? 'rotate-180' : ''"
+                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+
+                <!-- Dropdown list -->
+                <div x-show="open"
+                    @click.outside="open = false"
+                    x-transition
+                    class="absolute mt-2 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl shadow-lg overflow-hidden z-10"
+                >
+                    <ul class="text-gray-800 dark:text-white max-h-60 overflow-y-auto scrollbar-hide">
+                        <li>
+                            <button type="button"
+                                @click="selected = ''; open = false"
+                                class="w-full text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                            >
+                                All Locations
+                            </button>
+                        </li>
+                        <template x-for="loc in locations" :key="loc.name">
+                            <li>
+                                <button type="button"
+                                    @click="selected = loc.name; open = false"
+                                    class="w-full text-left px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                                    x-text="loc.name"
+                                ></button>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
 
                 <!-- Salary Filter -->
                 <div>
@@ -331,12 +501,40 @@
 
 
 <script>
+document.getElementById('filter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const params = new URLSearchParams(new FormData(form)).toString();
 
+    fetch(form.action + '?' + params, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(res => res.text())
+    .then(html => {
+        document.getElementById('jobs-results').innerHTML = html;
+
+        // Close mobile sidebar if open
+        const sidebar = document.getElementById('mobile-filter-sidebar');
+        const content = document.getElementById('mobile-filter-content');
+        if (!sidebar.classList.contains('invisible')) {
+            sidebar.classList.add('opacity-0');
+            content.classList.add('-translate-x-full');
+            setTimeout(() => {
+                sidebar.classList.add('invisible');
+            }, 300);
+        }
+    })
+    .catch(err => console.error(err));
+});
+
+// Toggle mobile filter sidebar
 function toggleMobileFilters() {
     const sidebar = document.getElementById('mobile-filter-sidebar');
     const content = document.getElementById('mobile-filter-content');
 
-    if (sidebar.classList.contains('invisible')) {
+    const isOpen = !sidebar.classList.contains('invisible');
+
+    if (!isOpen) {
         // Open sidebar
         sidebar.classList.remove('invisible');
         setTimeout(() => {
@@ -349,9 +547,10 @@ function toggleMobileFilters() {
         content.classList.add('-translate-x-full');
         setTimeout(() => {
             sidebar.classList.add('invisible');
-        }, 300); // matches transition duration
+        }, 300);
     }
 }
+
 
     // ✅ Salary toggle
  function toggleSalaryRange() {
@@ -383,12 +582,11 @@ function toggleMobileFilters() {
 
     // ✅ Apply filters from mobile → copy values into desktop filters → submit
     function applyMobileFilters() {
-        // Copy dropdowns
-        document.querySelector('select[name="category"]').value = 
-            document.querySelector('select[name="category_mobile"]').value;
+        document.querySelector('input[name="category"]').value = 
+            document.querySelector('input[name="category_mobile"]').value;
 
-        document.querySelector('select[name="location"]').value = 
-            document.querySelector('select[name="location_mobile"]').value;
+        document.querySelector('input[name="location"]').value = 
+            document.querySelector('input[name="location_mobile"]').value;
 
         // Salary option
         let mobileSalary = document.querySelector('input[name="salary_option_mobile"]:checked');
@@ -417,19 +615,32 @@ function toggleMobileFilters() {
             if (match) match.checked = true;
         });
 
-        // Submit the real form
-        document.getElementById('filter-form').submit();
+        // Submit the form
+        document.getElementById('filter-form').dispatchEvent(new Event('submit', {cancelable: true, bubbles: true}));
     }
 
     // ✅ Clear all mobile filters
     function clearMobileFilters() {
-        document.querySelector('select[name="category_mobile"]').value = "";
-        document.querySelector('select[name="location_mobile"]').value = "";
+        // Reset Alpine selected
+        document.querySelectorAll('[x-data]').forEach(el => {
+            if(el.__x) {
+                if(el.__x.$data.selected !== undefined) el.__x.$data.selected = '';
+            }
+        });
+    
+        // Reset salary radios
         document.querySelectorAll('input[name="salary_option_mobile"]').forEach(el => el.checked = false);
+        document.querySelector('#mobile-salary-range').classList.add('hidden');
+    
+        // Reset min/max salary
+        document.querySelector('input[name="min_salary_mobile"]').value = '';
+        document.querySelector('input[name="max_salary_mobile"]').value = '';
+    
+        // Reset job type checkboxes
         document.querySelectorAll('input[name="type_mobile[]"]').forEach(el => el.checked = false);
+    
+        // Reset skills checkboxes if any
         document.querySelectorAll('input[name="skills_mobile[]"]').forEach(el => el.checked = false);
-        document.querySelector('input[name="min_salary_mobile"]').value = "";
-        document.querySelector('input[name="max_salary_mobile"]').value = "";
     }
 </script>
 

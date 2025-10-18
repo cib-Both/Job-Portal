@@ -1,7 +1,7 @@
 @extends('layouts.account')
 
 @section('content')
-<div class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden md:max-w-2xl px-8 py-8">
+<div class="max-w-md mx-auto bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden md:max-w-2xl px-8 py-8">
     <!-- Session Status -->
     <x-auth-session-status class="mb-6 p-4 bg-sky-50 dark:bg-sky-900/30 text-sky-800 dark:text-sky-200 rounded-lg border border-sky-100 dark:border-sky-800" :status="session('status')" />
 
@@ -55,7 +55,6 @@
                     name="password"
                     required 
                     autocomplete="current-password" 
-                    placeholder="••••••••" 
                 />
 
                 <!-- Toggle button -->

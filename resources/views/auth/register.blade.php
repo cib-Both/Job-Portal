@@ -1,7 +1,7 @@
 @extends('layouts.account')
 
 @section('content')
-    <div class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden md:max-w-2xl px-8 py-12">
+    <div class="max-w-md mx-auto bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden md:max-w-2xl px-8 py-12">
         <div class="text-center mb-10">
             <div class="mx-auto flex items-center justify-center">
                 <img src="images/Logojob.png" alt="Logo" class="w-20 h-20 object-contain" />
@@ -60,7 +60,6 @@
                         x-bind:type="show ? 'text' : 'password'"
                         name="password"
                         required autocomplete="new-password"
-                        placeholder="••••••••"
                         class="block w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:text-white placeholder-gray-400" />
 
                     <!-- Toggle Button -->
@@ -105,7 +104,6 @@
                         x-bind:type="showConfirm ? 'text' : 'password'"
                         name="password_confirmation"
                         required autocomplete="new-password"
-                        placeholder="••••••••"
                         class="block w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:text-white placeholder-gray-400" />
 
                     <!-- Toggle Button -->

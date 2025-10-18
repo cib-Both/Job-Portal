@@ -10,6 +10,7 @@ use App\Http\Controllers\JobsController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/jobs', [JobsController::class, 'index'])->name('jobs');
+Route::get('/jobs/filter', [JobsController::class, 'filter'])->name('jobs.filter');
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
 
