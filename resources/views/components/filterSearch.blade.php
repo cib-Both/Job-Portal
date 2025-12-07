@@ -214,11 +214,11 @@
                     Clear
                 </a>
             </div>
-            <div class="text-center">
+            <!-- <div class="text-center">
                 <span class="text-sm text-slate-500 dark:text-slate-400">
                     {{ $posts->total() ?? 0 }} jobs found
                 </span>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -490,11 +490,11 @@
                         Clear
                     </button>
                 </div>
-                <div class="text-center">
+                <!-- <div class="text-center">
                     <span class="text-sm text-slate-500 dark:text-slate-400">
                         {{ $posts->total() ?? 0 }} jobs found
                     </span>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
