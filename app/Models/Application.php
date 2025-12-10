@@ -9,11 +9,7 @@ class Application extends Model
     protected $fillable = [
         'user_id',
         'job_id',
-        'user_name',
-        'user_email',
-        'user_contact_phone',
         'status',
-        'resume',
     ];
 
     public function user()
@@ -26,8 +22,8 @@ class Application extends Model
         return $this->belongsTo(Job::class);
     }
 
-    public function company()
+    public function userCv()
     {
-        return $this->belongsTo(Company::class);
+        return $this->hasOne(UserCv::class, 'user_id');
     }
 }

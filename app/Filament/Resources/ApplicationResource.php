@@ -27,27 +27,10 @@ class ApplicationResource extends Resource
                 Forms\Components\TextInput::make('job_id')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('company_id')
-                    ->required()
-                    ->numeric(),
                 Forms\Components\TextInput::make('user_id')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('user_name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('user_email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('user_contact_phone')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('resume')
-                    ->maxLength(255),
                 Forms\Components\TextInput::make('status')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('applied_at')
                     ->required(),
             ]);
     }
@@ -59,24 +42,10 @@ class ApplicationResource extends Resource
                 Tables\Columns\TextColumn::make('job_id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('company_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('user_id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('user_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user_email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user_contact_phone')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('resume')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\TextColumn::make('applied_at')
-                    ->dateTime()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
