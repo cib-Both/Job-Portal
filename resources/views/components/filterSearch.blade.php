@@ -142,19 +142,19 @@
                 </h4>
                 <div class="space-y-2">
                     <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
-                        <input type="radio" name="salary_option" value="" {{ request('salary_option') == '' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="text-blue-600 focus:ring-blue-500">
+                        <input type="radio" name="salary_option" value="" {{ request('salary_option') == '' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                         <span class="text-slate-700 dark:text-slate-300">All</span>
                     </label>
                     <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
-                        <input type="radio" name="salary_option" value="not" {{ request('salary_option') == 'not' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="text-blue-600 focus:ring-blue-500">
+                        <input type="radio" name="salary_option" value="not" {{ request('salary_option') == 'not' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                         <span class="text-slate-700 dark:text-slate-300">Unpaid</span>
                     </label>
                     <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
-                        <input type="radio" name="salary_option" value="negotiable" {{ request('salary_option') == 'negotiable' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="text-blue-600 focus:ring-blue-500">
+                        <input type="radio" name="salary_option" value="negotiable" {{ request('salary_option') == 'negotiable' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                         <span class="text-slate-700 dark:text-slate-300">Negotiable</span>
                     </label>
                     <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
-                        <input type="radio" name="salary_option" value="pay" {{ request('salary_option') == 'pay' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="text-blue-600 focus:ring-blue-500">
+                        <input type="radio" name="salary_option" value="pay" {{ request('salary_option') == 'pay' ? 'checked' : '' }} onchange="toggleSalaryRange()" class="dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                         <span class="text-slate-700 dark:text-slate-300">Paid</span>
                     </label>
                 </div>
@@ -192,7 +192,7 @@
                                        name="type[]" 
                                        value="{{ $type }}" 
                                        {{ in_array($type, request()->input('type', [])) ? 'checked' : '' }} 
-                                       class="rounded text-blue-600 focus:ring-blue-500">
+                                       class="rounded dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                                 <span class="text-slate-700 dark:text-slate-300 capitalize">{{ $type }}</span>
                             </div>
                             <span class="text-xs text-slate-500 dark:text-slate-100 bg-slate-100 dark:bg-slate-600 px-2 py-1 rounded-full">
@@ -418,19 +418,19 @@
                     </h4>
                     <div class="space-y-2">
                         <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
-                            <input type="radio" name="salary_option_mobile" value="" {{ request('salary_option') == '' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="text-blue-600 focus:ring-blue-500">
+                            <input type="radio" name="salary_option_mobile" value="" {{ request('salary_option') == '' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                             <span class="text-slate-700 dark:text-slate-300">All</span>
                         </label>
                         <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
-                            <input type="radio" name="salary_option_mobile" value="not" {{ request('salary_option') == 'not' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="text-blue-600 focus:ring-blue-500">
+                            <input type="radio" name="salary_option_mobile" value="not" {{ request('salary_option') == 'not' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                             <span class="text-slate-700 dark:text-slate-300">Unpaid</span>
                         </label>
                         <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
-                            <input type="radio" name="salary_option_mobile" value="negotiable" {{ request('salary_option') == 'negotiable' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="text-blue-600 focus:ring-blue-500">
+                            <input type="radio" name="salary_option_mobile" value="negotiable" {{ request('salary_option') == 'negotiable' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                             <span class="text-slate-700 dark:text-slate-300">Negotiable</span>
                         </label>
                         <label class="flex items-center gap-3 p-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg cursor-pointer transition-colors">
-                            <input type="radio" name="salary_option_mobile" value="pay" {{ request('salary_option') == 'pay' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="text-blue-600 focus:ring-blue-500">
+                            <input type="radio" name="salary_option_mobile" value="pay" {{ request('salary_option') == 'pay' ? 'checked' : '' }} onchange="toggleMobileSalaryRange()" class="dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                             <span class="text-slate-700 dark:text-slate-300">Paid</span>
                         </label>
                     </div>
@@ -468,7 +468,7 @@
                                            name="type_mobile[]" 
                                            value="{{ $type }}" 
                                            {{ in_array($type, request()->input('type', [])) ? 'checked' : '' }}
-                                           class="rounded text-blue-600 focus:ring-blue-500">
+                                           class="rounded dark:bg-slate-600 text-blue-600 focus:ring-blue-500">
                                     <span class="text-slate-700 dark:text-slate-300 capitalize">{{ $type }}</span>
                                 </div>
                                 <span class="text-xs text-slate-500 bg-slate-100 dark:bg-slate-600 px-2 py-1 rounded-full">
