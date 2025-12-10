@@ -57,4 +57,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Application::class);
     }
+
+    public function userCv()
+    {
+        return $this->hasOne(UserCv::class);
+    }
 }
