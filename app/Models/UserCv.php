@@ -17,4 +17,9 @@ class UserCv extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function application()
+    {
+        return $this->belongsTo(Application::class, 'user_id', 'user_id');
+    }
 }

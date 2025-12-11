@@ -33,7 +33,7 @@ class CvController extends Controller
             'resume_path' => $path,
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'CV uploaded successfully!');
+        return redirect()->route('my.cv')->with('success', 'CV uploaded successfully!');
     }
 
     public function destroy()
@@ -44,10 +44,10 @@ class CvController extends Controller
         if ($userCv) {
             Storage::disk('public')->delete($userCv->resume_path);
             $userCv->delete();
-            return redirect()->route('dashboard')->with('success', 'CV deleted successfully!');
+            return redirect()->route('my.cv')->with('success', 'CV deleted successfully!');
         }
 
-        return redirect()->route('dashboard')->with('error', 'No CV found to delete.');
+        return redirect()->route('my.cv')->with('error', 'No CV found to delete.');
     }
 
     public function download()
@@ -59,6 +59,6 @@ class CvController extends Controller
             return Storage::disk('public')->download($userCv->resume_path);
         }
 
-        return redirect()->route('dashboard')->with('error', 'CV not found.');
+        return redirect()->route('my.cv')->with('error', 'CV not found.');
     }
 }
