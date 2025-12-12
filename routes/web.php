@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
@@ -17,9 +18,7 @@ Route::view('/contact', 'pages.contact')->name('contact');
 
 Route::get('/jobs/{id}', [JobdetailController::class, 'show'])->name('jobs.detail');
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,6 +35,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/jobs/{postId}/apply', [ApplicationController::class, 'store'])->name('application.store');
     Route::get('/jobs/{postId}/check-status', [ApplicationController::class, 'checkStatus'])->name('application.checkStatus');
+    Route::delete('/applications/{applicationId}', [ApplicationController::class, 'destroy'])->name('application.destroy');
 });
 
 require __DIR__.'/auth.php';

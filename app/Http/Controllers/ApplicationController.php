@@ -70,6 +70,25 @@ class ApplicationController extends Controller
             ], 500);
         }
     }
+
+    public function destroy($applicationId)
+    {
+        try {
+            $user = Auth::user();
+            $application = Application::where('id', $applicationId)
+                ->where('user_id', $user->id)
+                ->firstOrFail();
+
+            $application->delete();
+
+            return redirect()->route('dashboard')->with('success', 'Application deleted successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Application deletion error: ' . $e->getMessage());
+
+            return redirect()->route('dashboard')->with('error', 'Failed to delete application.');
+        }
+    }
     
     public function checkStatus($postId)
     {

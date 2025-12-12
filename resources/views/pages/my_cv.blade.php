@@ -80,11 +80,11 @@
                                             </svg>
                                             Download
                                         </a>
-                                        <form action="{{ route('cv.destroy') }}" method="POST" class="inline flex-1 sm:flex-none">
+                                        <form id="deleteCvForm" action="{{ route('cv.destroy') }}" method="POST" class="inline flex-1 sm:flex-none">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" 
-                                                    onclick="return confirm('Are you sure you want to delete your CV?')"
+                                            <button type="button" 
+                                                    onclick="openModal('deleteCvModal')"
                                                     class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -132,7 +132,7 @@
                                         @enderror
                                     </div>
                                     <button type="submit" 
-                                            class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                                            class="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                                         <span class="flex items-center justify-center">
                                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
@@ -190,7 +190,7 @@
                                         @enderror
                                     </div>
                                     <button type="submit" 
-                                            class="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-base font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                            class="w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-base font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                                         <span class="flex items-center justify-center">
                                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
@@ -206,4 +206,22 @@
             </div>
         </div>
     </div>
+    <x-delete-confirm-modal 
+        id="deleteCvModal"
+        title="Delete CV?"
+        message="Are you sure you want to delete your CV? This action cannot be undone."
+        confirmText="Yes, Delete"
+        cancelText="Cancel"
+        data-form-id="deleteCvForm"
+    />
 </x-app-layout>
+
+<script>
+    // Set the form ID for the modal
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('deleteCvModal');
+        if (modal) {
+            modal.dataset.formId = 'deleteCvForm';
+        }
+    });
+</script>
