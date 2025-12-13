@@ -165,7 +165,7 @@
                     </div>
 
                     @auth
-                        <!-- Apply Button (Initial State) -->
+                        <!-- Apply Button and Undo -->
                         <button id="applyBtn" type="button"
                             class="group text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-6 py-3 text-center 
                                    inline-flex items-center gap-2 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300">
@@ -175,34 +175,19 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                             </svg>
                         </button>
-
-                        <!-- Countdown Button (Shown during countdown) -->
-                        <div id="countdownSection" class="hidden inline-flex items-center gap-4">
-                            <button type="button"
-                                class="flex items-center gap-3 bg-orange-500 hover:bg-orange-600 text-white font-medium 
-                                       rounded-lg text-sm px-4 py-3 shadow-md transition-all duration-300">
+                
+                        <button id="countdownBtn" type="button" class="hidden items-center bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-4 py-3 shadow-md transition-all duration-300">
+                            <div class="flex gap-3 items-center">
+                                <span class="text-base">
+                                    Undo Apply <span id="countdown" class="font-bold">5</span>
+                                </span>
                                 <svg class="w-5 h-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-30" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                                    <path class="opacity-90" fill="currentColor"
-                                        d="M12 2a10 10 0 00-10 10h4a6 6 0 016-6V2z"/>
+                                    <path class="opacity-90" fill="currentColor" d="M12 2a10 10 0 00-10 10h4a6 6 0 016-6V2z"/>
                                 </svg>
+                            </div>
+                        </button>
                         
-                                <span class="text-base">
-                                    Submitting in <span id="countdown" class="font-bold">5</span>
-                                </span>
-                            </button>
-                            <button id="undoBtn" type="button"
-                                class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-medium 
-                                       rounded-lg text-sm px-4 py-3 shadow-md transition-all duration-300">
-                        
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"/>
-                                </svg>
-                                <span>Undo</span>
-                            </button>
-                        </div>
-                        <!-- Already Applied State -->
                         <button id="appliedBtn" type="button" disabled 
                             class="hidden inline-flex items-center gap-2 text-white bg-gray-500 
                                    font-medium rounded-lg text-sm px-6 py-3 cursor-not-allowed">
@@ -239,8 +224,7 @@
     let timeLeft = 5;
     
     const applyBtn = document.getElementById('applyBtn');
-    const countdownSection = document.getElementById('countdownSection');
-    const undoBtn = document.getElementById('undoBtn');
+    const countdownBtn = document.getElementById('countdownBtn');
     const countdownElement = document.getElementById('countdown');
     const successMessage = document.getElementById('successMessage');
     const errorMessage = document.getElementById('errorMessage');
@@ -261,7 +245,8 @@
     applyBtn.addEventListener('click', function() {
         // Hide apply button and show countdown
         applyBtn.classList.add('hidden');
-        countdownSection.classList.remove('hidden');
+        countdownBtn.classList.remove('hidden');
+        countdownBtn.classList.add('inline-flex');
         errorMessage.classList.add('hidden');
         
         // Reset countdown
@@ -280,10 +265,11 @@
         }, 1000);
     });
     
-    // Undo button click
-    undoBtn.addEventListener('click', function() {
+    // Countdown button click (acts as undo)
+    countdownBtn.addEventListener('click', function() {
         clearInterval(countdownTimer);
-        countdownSection.classList.add('hidden');
+        countdownBtn.classList.add('hidden');
+        countdownBtn.classList.remove('inline-flex');
         applyBtn.classList.remove('hidden');
     });
     
@@ -298,7 +284,8 @@
         })
         .then(response => response.json())
         .then(data => {
-            countdownSection.classList.add('hidden');
+            countdownBtn.classList.add('hidden');
+            countdownBtn.classList.remove('inline-flex');
             
             if (data.success) {
                 successMessage.classList.remove('hidden');
@@ -328,7 +315,8 @@
         })
         .catch(error => {
             console.error('Error:', error);
-            countdownSection.classList.add('hidden');
+            countdownBtn.classList.add('hidden');
+            countdownBtn.classList.remove('inline-flex');
             applyBtn.classList.remove('hidden');
             errorText.textContent = 'An error occurred. Please try again.';
             errorMessage.classList.remove('hidden');
