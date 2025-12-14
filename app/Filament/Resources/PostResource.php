@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Enums\FiltersLayout;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PostResource extends Resource
@@ -189,9 +190,46 @@ class PostResource extends Resource
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
             ])
+
             ->filters([
-                //
-            ])
+                Tables\Filters\SelectFilter::make('Job.title')
+                    ->label('Job Title')
+                    ->relationship('job', 'title')
+                    ->native(false)
+                    ->multiple(),
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status')
+                    ->native(false)
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Published',
+                    ]),
+                Tables\Filters\SelectFilter::make('type')
+                    ->label('Job Type')
+                    ->native(false)
+                    ->options([
+                        'full-time' => 'Full-Time',
+                        'part-time' => 'Part-Time',
+                        'contract' => 'Contract',
+                        'freeland' => 'Freelance',
+                        'internship' => 'Internship',
+                    ]),
+                Tables\Filters\SelectFilter::make('salary_option')
+                    ->label('Salary Option')
+                    ->native(false)
+                    ->options([
+                        'pay' => 'Pay',
+                        'negotiable' => 'Negotiable',
+                        'not' => 'Not pay',
+                    ]),
+                Tables\Filters\SelectFilter::make('deadline_option')
+                    ->label('Deadline Option')
+                    ->native(false)
+                    ->options([
+                        'specific' => 'Specific Date',
+                        'until-full' => 'Until Full',
+                    ])   
+            ],layout: FiltersLayout::AboveContent)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
