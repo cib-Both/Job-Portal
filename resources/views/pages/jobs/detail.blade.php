@@ -146,19 +146,70 @@
                     </div>
                 </div>
 
-                <!-- Apply Button -->
+                <!-- Apply Button Section -->
                 <div class="text-center">
-                    <button type="sumit"
-                        class="group text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center 
-                               inline-flex items-center gap-2 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300">
-                        <span class="text-base">Apply Now</span>
-                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
-                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    <!-- Success Message -->
+                    <div id="successMessage" class="hidden mb-4 p-4 bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 rounded-lg">
+                        <svg class="inline w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
-                    </button>
+                        <span id="successText">Application submitted successfully!</span>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div id="errorMessage" class="hidden mb-4 p-4 bg-red-100 dark:bg-red-800 text-red-700 dark:text-red-200 rounded-lg">
+                        <svg class="inline w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                        <span id="errorText"></span>
+                    </div>
+
+                    @auth
+                        <!-- Apply Button and Undo -->
+                        <button id="applyBtn" type="button"
+                            class="group text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-6 py-3 text-center 
+                                   inline-flex items-center gap-2 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300">
+                            <span class="text-base">Apply Now</span>
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
+                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            </svg>
+                        </button>
+                
+                        <button id="countdownBtn" type="button" class="hidden items-center bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-4 py-3 shadow-md transition-all duration-300">
+                            <div class="flex gap-3 items-center">
+                                <span class="text-base">
+                                    Undo Apply <span id="countdown" class="font-bold">5</span>
+                                </span>
+                                <svg class="w-5 h-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-30" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                    <path class="opacity-90" fill="currentColor" d="M12 2a10 10 0 00-10 10h4a6 6 0 016-6V2z"/>
+                                </svg>
+                            </div>
+                        </button>
+                        
+                        <button id="appliedBtn" type="button" disabled 
+                            class="hidden inline-flex items-center gap-2 text-white bg-gray-500 
+                                   font-medium rounded-lg text-sm px-6 py-3 cursor-not-allowed">
+                            <span class="text-base">Applied</span>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    @else
+                        <a href="{{ route('login') }}" 
+                            class="group text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-6 py-3 text-center 
+                                   inline-flex items-center gap-2 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300">
+                            <span class="text-base">Login to Apply</span>
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
+                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            </svg>
+                        </a>
+                    @endauth
+
                     <p class="text-gray-500 dark:text-gray-400 text-sm mt-3">
-                        You'll be redirected to the company's application portal
+                        Make sure you have uploaded your CV before applying
                     </p>
                 </div>
             </div>
@@ -166,4 +217,111 @@
         </div>
     </div>
 </section>
+
+@auth
+<script>
+    let countdownTimer;
+    let timeLeft = 5;
+    
+    const applyBtn = document.getElementById('applyBtn');
+    const countdownBtn = document.getElementById('countdownBtn');
+    const countdownElement = document.getElementById('countdown');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+    const appliedBtn = document.getElementById('appliedBtn');
+    
+    // Check if user has already applied on page load
+    fetch('{{ route("application.checkStatus", $post->id) }}')
+        .then(response => response.json())
+        .then(data => {
+            if (data.hasApplied) {
+                applyBtn.classList.add('hidden');
+                appliedBtn.classList.remove('hidden');
+            }
+        });
+    
+    // Apply button click
+    applyBtn.addEventListener('click', function() {
+        // Hide apply button and show countdown
+        applyBtn.classList.add('hidden');
+        countdownBtn.classList.remove('hidden');
+        countdownBtn.classList.add('inline-flex');
+        errorMessage.classList.add('hidden');
+        
+        // Reset countdown
+        timeLeft = 5;
+        countdownElement.textContent = timeLeft;
+        
+        // Start countdown
+        countdownTimer = setInterval(function() {
+            timeLeft--;
+            countdownElement.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdownTimer);
+                submitApplication();
+            }
+        }, 1000);
+    });
+    
+    // Countdown button click (acts as undo)
+    countdownBtn.addEventListener('click', function() {
+        clearInterval(countdownTimer);
+        countdownBtn.classList.add('hidden');
+        countdownBtn.classList.remove('inline-flex');
+        applyBtn.classList.remove('hidden');
+    });
+    
+    // Submit application
+    function submitApplication() {
+        fetch('{{ route("application.store", $post->id) }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            countdownBtn.classList.add('hidden');
+            countdownBtn.classList.remove('inline-flex');
+            
+            if (data.success) {
+                successMessage.classList.remove('hidden');
+                appliedBtn.classList.remove('hidden');
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 5000);
+            } else {
+                errorText.textContent = data.message;
+                errorMessage.classList.remove('hidden');
+                
+                if (data.redirect) {
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 2000);
+                } else {
+                    applyBtn.classList.remove('hidden');
+                }
+                
+                // Hide error message after 5 seconds
+                setTimeout(() => {
+                    errorMessage.classList.add('hidden');
+                }, 5000);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            countdownBtn.classList.add('hidden');
+            countdownBtn.classList.remove('inline-flex');
+            applyBtn.classList.remove('hidden');
+            errorText.textContent = 'An error occurred. Please try again.';
+            errorMessage.classList.remove('hidden');
+        });
+    }
+</script>
+@endauth
 @endsection

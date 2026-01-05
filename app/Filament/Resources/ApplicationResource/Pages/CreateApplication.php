@@ -8,10 +8,10 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateApplication extends CreateRecord
 {
-    protected static string $resource = ApplicationResource::class;
+    // protected static string $resource = ApplicationResource::class;
 
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
-    }
+    // protected function getRedirectUrl(): string
+    // {
+    //     return $this->getResource()::getUrl('index');
+    // }
 }
